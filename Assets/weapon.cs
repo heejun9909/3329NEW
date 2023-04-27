@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class weapon : MonoBehaviour
 {   
     public LayerMask wattohit;
     public float  fr = 0;
-    public float damage = 10;
+    public int damage = 10;
     float firetime = 0;
     Transform firepoint;
     public Transform bullettrailprefab;
@@ -31,8 +30,8 @@ public class weapon : MonoBehaviour
             if (Input.GetButtonDown("Fire1")){
                 Shoot();
             }
-        }
-        else{
+
+        }else{
             if (Input.GetButton("Fire1") && Time.time> firetime){
                 firetime = Time.time + 1/fr;
                 Shoot();
@@ -50,6 +49,23 @@ public class weapon : MonoBehaviour
         Debug.DrawLine (firepointpos, (mousepos - firepointpos)*100, Color.cyan);
         if (hit.collider != null){
             Debug.DrawLine (firepointpos, hit.point, Color.red);
+ 
+            //check which enemy hit
+            AlienSpaceShip alienSpaceShip = hit.collider.GetComponent<AlienSpaceShip>();
+            if (alienSpaceShip != null)
+            {
+                alienSpaceShip.DamageAlienship(damage);
+                Debug.Log("We hit " + hit.collider.name + " and did " + damage + " damage.");
+            }
+
+            bosscontroller BS = hit.collider.GetComponent<bosscontroller>();
+            if (BS != null)
+            {
+                BS.DamageBoss(damage);
+                Debug.Log("We hit " + hit.collider.name + " and did " + damage + " damage."+ BS.BS.curHealth +" Health remain");
+
+            }
+
             Debug.Log("We hit " + hit.collider.name + " and did " + damage + " damage.");
         }
     } 

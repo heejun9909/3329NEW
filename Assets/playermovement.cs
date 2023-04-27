@@ -44,9 +44,9 @@ public class playermovement : MonoBehaviour {
 
         // Swap direction of sprite depending on walk direction
         if (inputX > 0)
-            transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
+            transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
         else if (inputX < 0)
-            transform.localScale = new Vector3(-3.0f, 3.0f, 3.0f);
+            transform.localScale = new Vector3(-3.5f, 3.5f, 3.5f);
 
         // Move
         m_body2d.velocity = new Vector2(inputX * m_speed, m_body2d.velocity.y);
@@ -71,7 +71,7 @@ public class playermovement : MonoBehaviour {
             Debug.DrawRay(m_body2d.position,Vector3.down, new Color(0,1,0));
             RaycastHit2D rayhit = Physics2D.Raycast(m_body2d.position,Vector3.down, 1.0f, LayerMask.GetMask("ground"));
             if (rayhit.collider != null){
-                if (rayhit.distance< 2f){
+                if (rayhit.distance< 1f){
                     m_animator.SetBool("isJump", false);
                 }
             }

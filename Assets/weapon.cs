@@ -17,7 +17,7 @@ public class weapon : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        firepoint = transform.FindChild("firepoint");
+        firepoint = transform.Find("firepoint");
         if (firepoint == null){
             Debug.LogError("No firepoint");
 
@@ -31,8 +31,8 @@ public class weapon : MonoBehaviour
             if (Input.GetButtonDown("Fire1")){
                 Shoot();
             }
-
-        }else{
+        }
+        else{
             if (Input.GetButton("Fire1") && Time.time> firetime){
                 firetime = Time.time + 1/fr;
                 Shoot();
@@ -50,10 +50,6 @@ public class weapon : MonoBehaviour
         Debug.DrawLine (firepointpos, (mousepos - firepointpos)*100, Color.cyan);
         if (hit.collider != null){
             Debug.DrawLine (firepointpos, hit.point, Color.red);
-
-            // if (hit.collider.name  == "player"){
-
-            // }
             Debug.Log("We hit " + hit.collider.name + " and did " + damage + " damage.");
         }
     } 
